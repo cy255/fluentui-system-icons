@@ -20,7 +20,7 @@ ICON_PREFIX = "ic_fluent_"
 
 
 def get_icon_name(file_name):
-    return file_name.replace('.pdf', '').replace('__', '_')
+    return file_name.replace('.svg', '').replace('__', '_')
 
 
 def bucket_array(array, bucket_size):
@@ -44,7 +44,7 @@ def process_assets():
 
     file_names = []
     for file_name in os.listdir("dist"):
-        if not file_name.endswith('.pdf'):
+        if not file_name.endswith('.svg'):
             continue
         file_names.append(file_name)
 
@@ -112,12 +112,12 @@ def process_assets():
         gn_file.write("import(\"//build/config/ios/asset_catalog.gni\")\n\n")
 
         for file_name in file_names:
-            icon_name = file_name.replace('.pdf', '')
+            icon_name = file_name.replace('.svg', '')
 
             gn_file.write("imageset(\"{}\")".format(icon_name) + " {\n")
             gn_file.write("  sources = [\n")
             gn_file.write("    \"FluentIcons/Assets/IconAssets.xcassets/{}.imageset/Contents.json\"".format(icon_name) + ",\n")
-            gn_file.write("    \"FluentIcons/Assets/IconAssets.xcassets/{icon_name}.imageset/{icon_name}.pdf\"".format(icon_name=icon_name) + ",\n")
+            gn_file.write("    \"FluentIcons/Assets/IconAssets.xcassets/{icon_name}.imageset/{icon_name}.svg\"".format(icon_name=icon_name) + ",\n")
             gn_file.write("  ]\n")
             gn_file.write("}\n\n")
     swift_enum_path = os.path.join(ios_directory, LIBRARY_NAME + "s", "Classes", LIBRARY_NAME + ".swift")
